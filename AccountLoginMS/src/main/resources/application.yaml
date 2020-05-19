@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: AccountLoginMS
+  sleuth:
+    trace-id128: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: 
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        web-allow-others: true
+  datasource:
+    url: "jdbc:h2:mem:userDb;DB_CLOSE_DELAY=-1"
+    username: "sa"
+    password: 
+    driver-class-name: org.h2.Driver
+server:
+  port: 8070
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    prefer-same-zone-eureka: true
+    service-url:
+      default: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${random.int}
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 5
+    prefer-ip-address: true
+    metadata-map:
+      zone: A
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    
+    
